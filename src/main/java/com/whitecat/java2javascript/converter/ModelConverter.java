@@ -1,4 +1,7 @@
-package com.whitecat.java2javascript;
+package com.whitecat.java2javascript.converter;
+
+import com.whitecat.java2javascript.model.ExampleEntity;
+
 public class ModelConverter{
 
      public static void main(String []args){
@@ -6,7 +9,7 @@ public class ModelConverter{
         String appName = "app";
         
         try{
-            Class[] clazzes = {Paciente.class};
+            Class[] clazzes = {ExampleEntity.class};
             
             for (Class clazz : clazzes){
                 StringBuffer metadataBuffer = new StringBuffer();
@@ -24,7 +27,7 @@ public class ModelConverter{
                         String propName = me.getName().replace("get", "").substring(0,1).toLowerCase() + 
                                             me.getName().replace("get", "").substring(1);
                         
-                        String type = me.getReturnType().getName().toLowerCase().substring(0,3).equals("int") ? "INTEGER" : "TEXT";
+                        String type = me.getReturnType().getName().toLowerCase().substring(me.getReturnType().getName().lastIndexOf(".")+1).substring(0, 3).equals("int") ? "INTEGER" : "TEXT";
                         
                         System.out.println("\tthis." + propName+"= data."+propName+" || null;");
                         
